@@ -117,11 +117,13 @@ export component App inherits Window {
                 letter-spacing: 1px;
             }
 
-            Text {
-                text: "→";
-                font-size: 16px;
-                color: #0a0a0fcc;
-                vertical-alignment: center;
+            Path {
+                width: 16px;
+                height: 16px;
+                viewbox-width: 24;
+                viewbox-height: 24;
+                fill: #0a0a0fcc;
+                commands: "M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8-8-8z";
             }
         }
     }
@@ -169,13 +171,15 @@ export component App inherits Window {
                 opacity: loaded ? 1 : 0;
                 animate opacity { duration: 500ms; easing: ease-out; }
 
-                // Ring symbol - centered via text alignment
-                Text {
-                    text: "◇";
-                    font-size: 28px;
-                    color: #d4a574;
-                    horizontal-alignment: center;
-                    vertical-alignment: center;
+                Path {
+                    width: 28px;
+                    height: 28px;
+                    x: (parent.width - self.width) / 2;
+                    y: (parent.height - self.height) / 2;
+                    viewbox-width: 24;
+                    viewbox-height: 24;
+                    fill: #d4a574;
+                    commands: "M12 2L2 12l10 10 10-10L12 2zm0 3.41L18.59 12 12 18.59 5.41 12 12 5.41z";
                     opacity: loaded ? 1 : 0;
                     animate opacity { duration: 400ms; delay: 300ms; easing: ease-out; }
                 }

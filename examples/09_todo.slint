@@ -119,12 +119,15 @@ export component App inherits Window {
                             clicked => { reset-all(); }
                         }
 
-                        Text {
-                            text: "↺"; 
-                            font-size: 18px;
-                            horizontal-alignment: center;
-                            vertical-alignment: center;
-                            color: reset-touch.has-hover ? accent-primary : text-dim;
+                        Path {
+                            width: 18px;
+                            height: 18px;
+                            x: (parent.width - self.width) / 2;
+                            y: (parent.height - self.height) / 2;
+                            viewbox-width: 24;
+                            viewbox-height: 24;
+                            fill: reset-touch.has-hover ? accent-primary : text-dim;
+                            commands: "M17.65 6.35C16.2 4.9 14.21 4 12 4c-4.42 0-7.99 3.58-7.99 8s3.57 8 7.99 8c3.73 0 6.84-2.55 7.73-6h-2.08c-.82 2.33-3.04 4-5.65 4-3.31 0-6-2.69-6-6s2.69-6 6-6c1.66 0 3.14.69 4.22 1.78L13 11h7V4l-2.35 2.35z";
                         }
                     }
                 }
@@ -146,12 +149,15 @@ export component App inherits Window {
                             clicked => { clear-completed(); }
                         }
 
-                        Text {
-                            text: "🗑"; 
-                            font-size: 16px;
-                            horizontal-alignment: center;
-                            vertical-alignment: center;
-                            color: clear-touch.has-hover ? danger : text-dim;
+                        Path {
+                            width: 16px;
+                            height: 16px;
+                            x: (parent.width - self.width) / 2;
+                            y: (parent.height - self.height) / 2;
+                            viewbox-width: 24;
+                            viewbox-height: 24;
+                            fill: clear-touch.has-hover ? danger : text-dim;
+                            commands: "M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z";
                         }
                     }
                 }
@@ -177,12 +183,15 @@ export component App inherits Window {
                         border-radius: 60px;
                         background: bg-surface;
 
-                        Text {
-                            text: "✓";
-                            font-size: 48px;
-                            color: accent-secondary;
-                            horizontal-alignment: center;
-                            vertical-alignment: center;
+                        Path {
+                            width: 48px;
+                            height: 48px;
+                            x: (parent.width - self.width) / 2;
+                            y: (parent.height - self.height) / 2;
+                            viewbox-width: 24;
+                            viewbox-height: 24;
+                            fill: accent-secondary;
+                            commands: "M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z";
                         }
                     }
                 }
@@ -232,14 +241,16 @@ export component App inherits Window {
 
                                 animate background { duration: 200ms; }
                                 
-                                Text {
-                                    text: "✓";
-                                    font-size: 14px;
-                                    color: #ffffff;
-                                    font-weight: 900;
+                                Path {
+                                    width: 14px;
+                                    height: 14px;
+                                    x: (parent.width - self.width) / 2;
+                                    y: (parent.height - self.height) / 2;
+                                    viewbox-width: 24;
+                                    viewbox-height: 24;
+                                    fill: #ffffff;
                                     opacity: todo.completed ? 1 : 0;
-                                    horizontal-alignment: center;
-                                    vertical-alignment: center;
+                                    commands: "M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z";
                                 }
                             }
                         }
@@ -271,12 +282,15 @@ export component App inherits Window {
                                     clicked => { delete-todo(idx); }
                                 }
 
-                                Text {
-                                    text: "×";
-                                    font-size: 20px;
-                                    color: del-touch.has-hover ? danger : text-dim;
-                                    horizontal-alignment: center;
-                                    vertical-alignment: center;
+                                Path {
+                                    width: 20px;
+                                    height: 20px;
+                                    x: (parent.width - self.width) / 2;
+                                    y: (parent.height - self.height) / 2;
+                                    viewbox-width: 24;
+                                    viewbox-height: 24;
+                                    fill: del-touch.has-hover ? danger : text-dim;
+                                    commands: "M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z";
                                 }
                             }
                         }
@@ -365,13 +379,15 @@ export component App inherits Window {
                                     }
                                 }
 
-                                Text {
-                                    text: "⇡";
-                                    font-size: 20px;
-                                    font-weight: 500;
-                                    color: new-todo-text != "" ? accent-secondary : text-dim;
-                                    horizontal-alignment: center;
-                                    vertical-alignment: center;
+                                Path {
+                                    width: 20px;
+                                    height: 20px;
+                                    x: (parent.width - self.width) / 2;
+                                    y: (parent.height - self.height) / 2;
+                                    viewbox-width: 24;
+                                    viewbox-height: 24;
+                                    fill: new-todo-text != "" ? accent-secondary : text-dim;
+                                    commands: "M9 16h6v-6h4l-7-7-7 7h4v6zm-4 2h14v2H5v-2z";
                                 }
                             }
                         }

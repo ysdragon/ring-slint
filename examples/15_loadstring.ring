@@ -16,11 +16,25 @@ export component DynamicApp inherits Window {
         padding: 16px;
         spacing: 12px;
         
-        Text {
-            text: "⚡ Ring Slint";
-            font-size: 24px;
-            font-weight: 700;
-            horizontal-alignment: center;
+        HorizontalLayout {
+            alignment: center;
+            spacing: 8px;
+            
+            Path {
+                width: 24px;
+                height: 24px;
+                viewbox-width: 24;
+                viewbox-height: 24;
+                fill: #f59e0b;
+                commands: "M13 2L3 14h9l-1 8 10-12h-9l1-8z";
+            }
+            
+            Text {
+                text: "Ring Slint";
+                font-size: 24px;
+                font-weight: 700;
+                vertical-alignment: center;
+            }
         }
         
         Rectangle {
@@ -44,7 +58,7 @@ export component DynamicApp inherits Window {
             }
             
             Button {
-                text: "👋 Greet";
+                text: "Greet";
                 primary: true;
                 clicked => { greet(name-input.text); }
             }

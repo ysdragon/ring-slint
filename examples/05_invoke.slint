@@ -121,15 +121,17 @@ export component App inherits Window {
                                 clicked => { value-a = max(0, value-a - 1); }
                             }
 
-                            Text {
-                                text: "−";
-                                font-size: 28px;
-                                font-weight: 500;
-                                color: dec-a-touch.pressed ? white : accent-purple;
-                                horizontal-alignment: center;
-                                vertical-alignment: center;
-
-                                animate color { duration: 120ms; easing: ease-out; }
+                            Path {
+                                width: 28px;
+                                height: 28px;
+                                x: (parent.width - self.width) / 2;
+                                y: (parent.height - self.height) / 2;
+                                viewbox-width: 24;
+                                viewbox-height: 24;
+                                fill: dec-a-touch.pressed ? white : accent-purple;
+                                commands: "M19 13H5v-2h14v2z";
+                                
+                                animate fill { duration: 120ms; easing: ease-out; }
                             }
                         }
 
@@ -169,15 +171,17 @@ export component App inherits Window {
                                 clicked => { value-a = min(100, value-a + 1); }
                             }
 
-                            Text {
-                                text: "+";
-                                font-size: 28px;
-                                font-weight: 500;
-                                color: inc-a-touch.pressed ? white : accent-purple;
-                                horizontal-alignment: center;
-                                vertical-alignment: center;
-
-                                animate color { duration: 120ms; easing: ease-out; }
+                            Path {
+                                width: 28px;
+                                height: 28px;
+                                x: (parent.width - self.width) / 2;
+                                y: (parent.height - self.height) / 2;
+                                viewbox-width: 24;
+                                viewbox-height: 24;
+                                fill: inc-a-touch.pressed ? white : accent-purple;
+                                commands: "M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z";
+                                
+                                animate fill { duration: 120ms; easing: ease-out; }
                             }
                         }
                     }
@@ -193,13 +197,35 @@ export component App inherits Window {
                         border-radius: 8px;
                         background: surface;
 
-                        Text {
-                            text: "× and +";
-                            font-size: 13px;
-                            font-weight: 500;
-                            color: text-muted;
-                            horizontal-alignment: center;
-                            vertical-alignment: center;
+                        HorizontalLayout {
+                            alignment: center;
+                            spacing: 4px;
+                            
+                            Path {
+                                width: 13px;
+                                height: 13px;
+                                viewbox-width: 24;
+                                viewbox-height: 24;
+                                fill: text-muted;
+                                commands: "M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z";
+                            }
+                            
+                            Text {
+                                text: "and";
+                                font-size: 13px;
+                                font-weight: 500;
+                                color: text-muted;
+                                vertical-alignment: center;
+                            }
+                            
+                            Path {
+                                width: 13px;
+                                height: 13px;
+                                viewbox-width: 24;
+                                viewbox-height: 24;
+                                fill: text-muted;
+                                commands: "M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z";
+                            }
                         }
                     }
                 }
@@ -255,15 +281,17 @@ export component App inherits Window {
                                 clicked => { value-b = max(0, value-b - 1); }
                             }
 
-                            Text {
-                                text: "−";
-                                font-size: 28px;
-                                font-weight: 500;
-                                color: dec-b-touch.pressed ? white : accent-cyan;
-                                horizontal-alignment: center;
-                                vertical-alignment: center;
-
-                                animate color { duration: 120ms; easing: ease-out; }
+                            Path {
+                                width: 28px;
+                                height: 28px;
+                                x: (parent.width - self.width) / 2;
+                                y: (parent.height - self.height) / 2;
+                                viewbox-width: 24;
+                                viewbox-height: 24;
+                                fill: dec-b-touch.pressed ? white : accent-cyan;
+                                commands: "M19 13H5v-2h14v2z";
+                                
+                                animate fill { duration: 120ms; easing: ease-out; }
                             }
                         }
 
@@ -303,15 +331,17 @@ export component App inherits Window {
                                 clicked => { value-b = min(100, value-b + 1); }
                             }
 
-                            Text {
-                                text: "+";
-                                font-size: 28px;
-                                font-weight: 500;
-                                color: inc-b-touch.pressed ? white : accent-cyan;
-                                horizontal-alignment: center;
-                                vertical-alignment: center;
-
-                                animate color { duration: 120ms; easing: ease-out; }
+                            Path {
+                                width: 28px;
+                                height: 28px;
+                                x: (parent.width - self.width) / 2;
+                                y: (parent.height - self.height) / 2;
+                                viewbox-width: 24;
+                                viewbox-height: 24;
+                                fill: inc-b-touch.pressed ? white : accent-cyan;
+                                commands: "M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z";
+                                
+                                animate fill { duration: 120ms; easing: ease-out; }
                             }
                         }
                     }

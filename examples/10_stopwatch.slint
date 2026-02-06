@@ -29,12 +29,45 @@ global Theme {
     out property <color> border-subtle: #ffffff08;
 }
 
-// ═══════════════════════════════════════════════════════════════════════════════
-// CONTROL BUTTON
-// ═══════════════════════════════════════════════════════════════════════════════
+enum StopwatchIcon {
+    none,
+    play,
+    pause,
+    flag,
+    reset,
+}
+
+global IconPaths {
+    out property <string> play: "M8 5v14l11-7L8 5z";
+    out property <string> pause: "M6 19h4V5H6v14zm8-14v14h4V5h-4z";
+    out property <string> flag: "M14.4 6L14 4H5v17h2v-7h5.6l.4 2h7V6h-5.6z";
+    out property <string> reset: "M17.65 6.35C16.2 4.9 14.21 4 12 4c-4.42 0-7.99 3.58-7.99 8s3.57 8 7.99 8c3.73 0 6.84-2.55 7.73-6h-2.08c-.82 2.33-3.04 4-5.65 4-3.31 0-6-2.69-6-6s2.69-6 6-6c1.66 0 3.14.69 4.22 1.78L13 11h7V4l-2.35 2.35z";
+}
+
+component StopwatchIconView inherits Rectangle {
+    in property <StopwatchIcon> icon-type: StopwatchIcon.none;
+    in property <color> icon-color: Theme.text-primary;
+    in property <length> icon-size: 18px;
+    
+    width: icon-size;
+    height: icon-size;
+    
+    Path {
+        width: 100%;
+        height: 100%;
+        viewbox-width: 24;
+        viewbox-height: 24;
+        fill: icon-color;
+        commands: icon-type == StopwatchIcon.play ? IconPaths.play
+                : icon-type == StopwatchIcon.pause ? IconPaths.pause
+                : icon-type == StopwatchIcon.flag ? IconPaths.flag
+                : icon-type == StopwatchIcon.reset ? IconPaths.reset
+                : "";
+    }
+}
 
 component ControlButton inherits Rectangle {
-    in property <string> icon;
+    in property <StopwatchIcon> icon: StopwatchIcon.none;
     in property <string> label;
     in property <color> bg-color;
     in property <color> bg-hover;
@@ -69,11 +102,13 @@ component ControlButton inherits Rectangle {
         alignment: center;
         spacing: 8px;
         
-        Text {
-            text: icon;
-            font-size: pill ? 18px : 22px;
-            color: disabled ? Theme.text-muted : Theme.text-primary;
-            vertical-alignment: center;
+        VerticalLayout {
+            alignment: center;
+            StopwatchIconView {
+                icon-type: icon;
+                icon-color: disabled ? Theme.text-muted : Theme.text-primary;
+                icon-size: pill ? 18px : 22px;
+            }
         }
         
         if pill: Text {
@@ -198,10 +233,13 @@ export component App inherits Window {
             alignment: center;
             spacing: 10px;
             
-            Text {
-                text: "⏱️";
-                font-size: 16px;
-                vertical-alignment: center;
+            Path {
+                width: 16px;
+                height: 16px;
+                viewbox-width: 24;
+                viewbox-height: 24;
+                fill: Theme.text-muted;
+                commands: "M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10 10-4.5 10-10S17.5 2 12 2zm0 18c-4.4 0-8-3.6-8-8s3.6-8 8-8 8 3.6 8 8-3.6 8-8 8zm.5-13H11v6l5.2 3.2.8-1.3-4.5-2.7V7z";
             }
             
             Text {
@@ -281,7 +319,7 @@ export component App inherits Window {
             // Start/Stop button
             ControlButton {
                 pill: true;
-                icon: running ? "⏸" : "▶";
+                icon: running ? StopwatchIcon.pause : StopwatchIcon.play;
                 label: running ? "Stop" : "Start";
                 bg-color: running ? Theme.danger : Theme.success;
                 bg-hover: running ? Theme.danger-dim : Theme.success-dim;
@@ -293,7 +331,7 @@ export component App inherits Window {
             // Lap button
             ControlButton {
                 pill: true;
-                icon: "🏁";
+                icon: StopwatchIcon.flag;
                 label: "Lap";
                 bg-color: Theme.accent;
                 bg-hover: Theme.accent-dim;
@@ -305,7 +343,7 @@ export component App inherits Window {
 
             // Reset button
             ControlButton {
-                icon: "↺";
+                icon: StopwatchIcon.reset;
                 bg-color: Theme.bg-elevated;
                 bg-hover: Theme.bg-hover;
                 bg-pressed: Theme.bg-surface;
@@ -370,10 +408,13 @@ export component App inherits Window {
                         alignment: center;
                         spacing: 10px;
 
-                        Text {
-                            text: "🏃";
-                            font-size: 36px;
-                            horizontal-alignment: center;
+                        Path {
+                            width: 36px;
+                            height: 36px;
+                            viewbox-width: 24;
+                            viewbox-height: 24;
+                            fill: Theme.text-muted;
+                            commands: "M13.5 5.5c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zM9.8 8.9L7 23h2.1l1.8-8 2.1 2v6h2v-7.5l-2.1-2 .6-3C14.8 12 16.8 13 19 13v-2c-1.9 0-3.5-1-4.3-2.4l-1-1.6c-.4-.6-1-1-1.7-1-.3 0-.5.1-.8.1L6 8.3V13h2V9.6l1.8-.7";
                         }
 
                         Text {

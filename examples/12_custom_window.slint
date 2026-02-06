@@ -156,15 +156,17 @@ component CloseButton inherits Rectangle {
         clicked => { root.clicked(); }
     }
     
-    Text {
-        text: "×";
-        color: touch.has-hover ? white : Theme.text-secondary;
-        font-size: 20px;
-        font-weight: 500;
-        horizontal-alignment: center;
-        vertical-alignment: center;
+    Path {
+        width: 20px;
+        height: 20px;
+        x: (parent.width - self.width) / 2;
+        y: (parent.height - self.height) / 2;
+        viewbox-width: 24;
+        viewbox-height: 24;
+        fill: touch.has-hover ? white : Theme.text-secondary;
+        commands: "M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z";
         
-        animate color { duration: 150ms; }
+        animate fill { duration: 150ms; }
     }
 }
 
@@ -242,12 +244,15 @@ export component App inherits Window {
                     drop-shadow-blur: 12px;
                     drop-shadow-color: Theme.accent-primary.with-alpha(0.4);
                     
-                    Text {
-                        text: "◐";
-                        font-size: 24px;
-                        color: white;
-                        horizontal-alignment: center;
-                        vertical-alignment: center;
+                    Path {
+                        width: 24px;
+                        height: 24px;
+                        x: (parent.width - self.width) / 2;
+                        y: (parent.height - self.height) / 2;
+                        viewbox-width: 24;
+                        viewbox-height: 24;
+                        fill: white;
+                        commands: "M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18V4c4.41 0 8 3.59 8 8s-3.59 8-8 8z";
                     }
                 }
                 
@@ -330,12 +335,31 @@ export component App inherits Window {
             background: Theme.bg-surface;
             border-radius: Theme.radius-sm;
             
-            Text {
-                text: "Drag window edges to move • Built with Slint";
-                color: Theme.text-muted;
-                font-size: 11px;
-                horizontal-alignment: center;
-                vertical-alignment: center;
+            HorizontalLayout {
+                alignment: center;
+                spacing: 8px;
+                
+                Text {
+                    text: "Drag window edges to move";
+                    color: Theme.text-muted;
+                    font-size: 11px;
+                    vertical-alignment: center;
+                }
+                
+                Rectangle {
+                    width: 4px;
+                    height: 4px;
+                    border-radius: 2px;
+                    background: Theme.text-muted;
+                    y: (parent.height - self.height) / 2;
+                }
+                
+                Text {
+                    text: "Built with Slint";
+                    color: Theme.text-muted;
+                    font-size: 11px;
+                    vertical-alignment: center;
+                }
             }
         }
     }
