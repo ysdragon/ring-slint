@@ -23,7 +23,7 @@ pub fn clipboard_get_text() -> Result<String, String> {
 }
 
 pub fn clipboard_set_text(text: &str) -> Result<(), String> {
-    with_clipboard(|cb| cb.set_text(text))
+    with_clipboard(|cb| cb.set_text(text.to_string()))
 }
 
 pub fn clipboard_clear() -> Result<(), String> {
