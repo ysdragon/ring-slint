@@ -1,0 +1,342 @@
+global Theme {
+    // Backgrounds
+    out property <color> bg-base: #07070a;
+    out property <color> bg-surface: #0d0d12;
+    out property <color> bg-elevated: #141419;
+    out property <color> bg-overlay: #1a1b23;
+    
+    // Accents
+    out property <color> accent-primary: #8b5cf6;
+    out property <color> accent-secondary: #6366f1;
+    out property <color> accent-cyan: #06b6d4;
+    out property <color> accent-success: #22c55e;
+    out property <color> accent-warning: #f59e0b;
+    out property <color> accent-error: #ef4444;
+    
+    // Text
+    out property <color> text-primary: #f8fafc;
+    out property <color> text-secondary: #94a3b8;
+    out property <color> text-muted: #64748b;
+    
+    // Borders
+    out property <color> border-subtle: #ffffff10;
+    out property <color> border-medium: #ffffff18;
+    out property <color> border-strong: #ffffff25;
+    
+    // Spacing
+    out property <length> space-xs: 4px;
+    out property <length> space-sm: 8px;
+    out property <length> space-md: 12px;
+    out property <length> space-lg: 16px;
+    out property <length> space-xl: 24px;
+    out property <length> space-2xl: 32px;
+    
+    // Radius
+    out property <length> radius-sm: 6px;
+    out property <length> radius-md: 10px;
+    out property <length> radius-lg: 14px;
+    out property <length> radius-xl: 20px;
+}
+
+component Slider inherits Rectangle {
+    in property <string> label;
+    in property <string> unit: "%";
+    in property <color> accent: Theme.accent-primary;
+    in property <float> min-value: 0;
+    in property <float> max-value: 100;
+    in-out property <float> value: 50;
+    
+    callback changed(float);
+    
+    property <float> normalized: (value - min-value) / (max-value - min-value);
+    
+    background: Theme.bg-surface;
+    border-radius: Theme.radius-lg;
+    border-width: 1px;
+    border-color: Theme.border-subtle;
+    
+    VerticalLayout {
+        padding: Theme.space-lg;
+        spacing: Theme.space-md;
+        
+        // Header with label and value
+        HorizontalLayout {
+            Text {
+                text: label;
+                color: Theme.text-secondary;
+                font-size: 13px;
+                font-weight: 500;
+            }
+            
+            Rectangle { horizontal-stretch: 1; }
+            
+            Rectangle {
+                width: 56px;
+                height: 28px;
+                border-radius: Theme.radius-sm;
+                background: accent.with-alpha(0.15);
+                border-width: 1px;
+                border-color: accent.with-alpha(0.2);
+                
+                Text {
+                    text: Math.round(value) + unit;
+                    color: accent;
+                    font-size: 13px;
+                    font-weight: 600;
+                    horizontal-alignment: center;
+                    vertical-alignment: center;
+                }
+            }
+        }
+        
+        // Slider track
+        Rectangle {
+            height: 8px;
+            background: Theme.bg-overlay;
+            border-radius: 4px;
+            
+            // Filled track
+            Rectangle {
+                width: parent.width * normalized;
+                height: 100%;
+                background: @linear-gradient(90deg, accent.darker(0.1) 0%, accent 100%);
+                border-radius: 4px;
+                
+                animate width { duration: 50ms; }
+            }
+            
+            // Thumb
+            Rectangle {
+                x: max(0px, min(parent.width - 24px, (parent.width - 24px) * normalized));
+                y: -8px;
+                width: 24px;
+                height: 24px;
+                border-radius: 12px;
+                background: white;
+                border-width: 2px;
+                border-color: accent;
+                
+                drop-shadow-blur: 8px;
+                drop-shadow-color: accent.with-alpha(0.3);
+                
+                animate x { duration: 50ms; }
+            }
+            
+            TouchArea {
+                clicked => {
+                    value = clamp(min-value + self.mouse-x / parent.width * (max-value - min-value), min-value, max-value);
+                    changed(value);
+                }
+                moved => {
+                    if self.pressed {
+                        value = clamp(min-value + self.mouse-x / parent.width * (max-value - min-value), min-value, max-value);
+                        changed(value);
+                    }
+                }
+            }
+        }
+    }
+}
+
+component CloseButton inherits Rectangle {
+    callback clicked();
+    
+    width: 44px;
+    height: 44px;
+    border-radius: Theme.radius-md;
+    background: touch.has-hover ? Theme.accent-error : Theme.bg-elevated;
+    border-width: 1px;
+    border-color: touch.has-hover ? Theme.accent-error : Theme.border-subtle;
+    
+    animate background { duration: 150ms; easing: ease-out; }
+    animate border-color { duration: 150ms; easing: ease-out; }
+    
+    touch := TouchArea {
+        mouse-cursor: pointer;
+        clicked => { root.clicked(); }
+    }
+    
+    Text {
+        text: "×";
+        color: touch.has-hover ? white : Theme.text-secondary;
+        font-size: 20px;
+        font-weight: 500;
+        horizontal-alignment: center;
+        vertical-alignment: center;
+        
+        animate color { duration: 150ms; }
+    }
+}
+
+component ColorSwatch inherits Rectangle {
+    in property <color> swatch-color;
+    
+    width: 52px;
+    height: 52px;
+    border-radius: Theme.radius-md;
+    background: touch.has-hover ? swatch-color : swatch-color.darker(0.15);
+    border-width: 2px;
+    border-color: touch.has-hover ? white.with-alpha(0.5) : transparent;
+    
+    drop-shadow-blur: touch.has-hover ? 16px : 8px;
+    drop-shadow-color: swatch-color.with-alpha(touch.has-hover ? 0.5 : 0.3);
+    
+    animate background { duration: 200ms; easing: ease-out; }
+    animate border-color { duration: 200ms; easing: ease-out; }
+    animate drop-shadow-blur { duration: 200ms; }
+    animate drop-shadow-color { duration: 200ms; }
+    
+    touch := TouchArea {
+        mouse-cursor: pointer;
+    }
+}
+
+export component App inherits Window {
+    no-frame: true;
+    background: transparent;
+    width: 440px;
+    height: 480px;
+
+    callback close-window();
+    callback opacity-changed(float);
+    callback start-drag();
+
+    in-out property <float> window-opacity: 0.95;
+    in-out property <float> blur-amount: 0;
+
+    // Background with opacity
+    Rectangle {
+        background: Theme.bg-base;
+        opacity: window-opacity;
+        border-radius: Theme.radius-xl;
+        border-width: 1px;
+        border-color: Theme.border-medium;
+    }
+
+    // Content layer (always full opacity)
+    VerticalLayout {
+        padding: Theme.space-xl;
+        spacing: Theme.space-xl;
+
+        Rectangle {
+            // Drag area overlaying title bar
+            TouchArea {
+                mouse-cursor: default;
+                moved => {
+                    if (self.pressed) {
+                        start-drag();
+                    }
+                }
+            }
+
+            HorizontalLayout {
+                spacing: Theme.space-lg;
+                
+                // Icon
+                Rectangle {
+                    width: 48px;
+                    height: 48px;
+                    border-radius: Theme.radius-md;
+                    background: @linear-gradient(135deg, Theme.accent-primary 0%, Theme.accent-cyan 100%);
+                    
+                    drop-shadow-blur: 12px;
+                    drop-shadow-color: Theme.accent-primary.with-alpha(0.4);
+                    
+                    Text {
+                        text: "◐";
+                        font-size: 24px;
+                        color: white;
+                        horizontal-alignment: center;
+                        vertical-alignment: center;
+                    }
+                }
+                
+                VerticalLayout {
+                    alignment: center;
+                    spacing: 4px;
+
+                    Text {
+                        text: "Translucent Window";
+                        font-size: 22px;
+                        font-weight: 700;
+                        color: Theme.text-primary;
+                    }
+
+                    Text {
+                        text: "Adjust opacity and visual effects";
+                        font-size: 13px;
+                        color: Theme.text-muted;
+                    }
+                }
+
+                Rectangle { horizontal-stretch: 1; }
+
+                CloseButton {
+                    clicked => { close-window(); }
+                }
+            }
+        }
+
+        Slider {
+            label: "Window Opacity";
+            unit: "%";
+            accent: Theme.accent-primary;
+            min-value: 30;
+            max-value: 100;
+            value: window-opacity * 100;
+            changed(v) => {
+                window-opacity = v / 100;
+                opacity-changed(window-opacity);
+            }
+        }
+
+        Slider {
+            label: "Glow Intensity";
+            unit: "px";
+            accent: Theme.accent-cyan;
+            min-value: 0;
+            max-value: 40;
+            value: blur-amount;
+            changed(v) => { blur-amount = v; }
+        }
+
+        Rectangle { vertical-stretch: 1; }
+
+        VerticalLayout {
+            spacing: Theme.space-md;
+            
+            Text {
+                text: "COLOR PALETTE";
+                color: Theme.text-muted;
+                font-size: 11px;
+                font-weight: 600;
+                letter-spacing: 1px;
+            }
+            
+            HorizontalLayout {
+                spacing: Theme.space-md;
+                alignment: center;
+                
+                ColorSwatch { swatch-color: Theme.accent-error; }
+                ColorSwatch { swatch-color: Theme.accent-warning; }
+                ColorSwatch { swatch-color: Theme.accent-success; }
+                ColorSwatch { swatch-color: Theme.accent-primary; }
+                ColorSwatch { swatch-color: Theme.accent-cyan; }
+            }
+        }
+
+        Rectangle {
+            height: 32px;
+            background: Theme.bg-surface;
+            border-radius: Theme.radius-sm;
+            
+            Text {
+                text: "Drag window edges to move • Built with Slint";
+                color: Theme.text-muted;
+                font-size: 11px;
+                horizontal-alignment: center;
+                vertical-alignment: center;
+            }
+        }
+    }
+}
