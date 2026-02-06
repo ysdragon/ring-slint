@@ -3,7 +3,7 @@ load "slint.ring"
 nModelId = 0
 
 oApp = new SlintApp {
-    loadUI("08_todo.slint")
+    loadUI("09_todo.slint")
     nModelId = modelCreate("todos")
     setCallback("add-todo", :onAddTodo)
     setCallback("toggle-todo", :onToggleTodo)

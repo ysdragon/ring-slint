@@ -4,7 +4,7 @@ nTimerId = 0
 nSeconds = 0
 
 oApp = new SlintApp {
-    loadUI("17_timer.slint")
+    loadUI("07_timer.slint")
 
     setCallback("start-timer", :onStartTimer)
     setCallback("stop-timer", :onStopTimer)

@@ -1,7 +1,7 @@
 load "slint.ring"
 
 oApp = new SlintApp {
-    loadUI("14_fonts.slint")
+    loadUI("13_fonts.slint")
     setCallback("tab-changed", :onTabChanged)
     show()
     run()

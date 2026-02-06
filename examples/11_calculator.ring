@@ -6,7 +6,7 @@ nOperand = 0
 bNewNumber = true
 
 oApp = new SlintApp {
-    loadUI("07_calculator.slint")
+    loadUI("11_calculator.slint")
     setCallback("digit", :onDigit)
     setCallback("operator", :onOperator)
     setCallback("equals", :onEquals)

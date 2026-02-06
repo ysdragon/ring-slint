@@ -1,7 +1,7 @@
 load "slint.ring"
 
 oApp = new SlintApp {
-    loadUI("05_globals.slint")
+    loadUI("06_globals.slint")
     globalSet("AppState", "user-name", "Ring User")
     globalSet("AppState", "counter", 0)
     globalSetCallback("AppState", "increment", :onIncrement)
