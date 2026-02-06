@@ -110,6 +110,7 @@ Your `assets/` directory must contain:
 | File | Required | Description |
 |------|----------|-------------|
 | `main.ring` | **Yes** | Application entry point (loaded and executed automatically) |
+| `slint.ring` | **Yes** | Ring Slint bindings (copy from `src/slint.ring`) |
 | `*.slint` | Yes | Your UI definition files |
 | Other assets | Optional | Images, fonts, etc. |
 
@@ -239,6 +240,7 @@ Place your `main.ring`, `.slint` files, and other assets in the `assets` directo
 src/rust_src/
 ├── assets/
 │   ├── main.ring          # REQUIRED - App entry point
+│   ├── slint.ring         # REQUIRED - Copy from src/slint.ring
 │   ├── app.slint          # Your UI definition
 │   ├── components/
 │   │   └── button.slint
@@ -249,7 +251,7 @@ src/rust_src/
 └── Cargo.toml
 ```
 
-> **Important:** `main.ring` is required and must be in the `assets/` directory. This is automatically loaded and executed when the Android app starts.
+> **Important:** Both `main.ring` and `slint.ring` are required in the `assets/` directory. Copy `slint.ring` from the project's `src/` directory. `main.ring` is automatically loaded and executed when the Android app starts.
 
 ### Loading Assets
 
