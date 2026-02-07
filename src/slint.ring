@@ -610,7 +610,7 @@ class SlintApp
      * Call this from a mouse-down event handler on your custom title bar area.
      * Uses winit's drag_window() internally. On Wayland, automatically resets
      * pointer state since the compositor steals the pointer during drag.
-     * Not supported on Android.
+     * Desktop only (not available on Android).
      * @return Self for method chaining.
      */
     func windowDrag
