@@ -31,7 +31,9 @@ Ring Slint supports Android with the following characteristics:
 The following desktop features are **not available** on Android:
 
 - File dialogs (`fileOpen`, `fileSave`, `folderOpen`)
+- Message boxes (`msgbox`, `msgboxWarning`, `msgboxError`, `confirm`, `yesno`)
 - Desktop notifications (`notify`)
+- Clipboard operations (`clipboardGet`, `clipboardSet`, `clipboardClear`)
 - Global hotkeys (`hotkeyRegister`)
 - System tray (`trayCreate`)
 - Window drag (`windowDrag`)
@@ -317,17 +319,25 @@ Check platform at runtime if needed:
 | **Models** | All model methods | - |
 | **Styles** | All styles | - |
 | **Window** | Basic window management | `windowDrag`, `windowSetAlwaysOnTop`, `windowSetIcon` |
-| **Dialogs** | - | All file/message dialogs |
-| **System** | - | Notifications, Hotkeys, Tray |
-| **Clipboard** | - | Clipboard operations |
+| **File Dialogs** | - | `fileOpen`, `fileSave`, `folderOpen` and variants |
+| **Message Boxes** | - | `msgbox`, `confirm`, `yesno` and variants |
+| **Notifications** | - | All notification methods |
+| **Clipboard** | - | All clipboard methods |
+| **Hotkeys** | - | All hotkey methods |
+| **System Tray** | - | All tray methods |
+
+All unavailable methods are excluded at compile time and will cause "Calling Function without definition" errors if called.
 
 ### Handling Unsupported Features
 
-The desktop-only methods will fail silently or return empty values on Android. Design your app to handle this:
+Desktop-only methods are **not compiled** into the Android build. Calling them from Ring will result in a "Calling Function without definition" runtime error.
+
+Design your app to avoid calling desktop-only functions on Android:
 
 ```ring
-// Don't rely on desktop features on Android
-// Use Slint's built-in dialogs instead of native ones
+// Desktop-only functions (fileOpen, msgbox, notify, clipboard*, hotkey*, tray*)
+// are not available on Android — they will cause runtime errors.
+// Use Slint's built-in UI components for input and feedback instead.
 ```
 
 ### Android-Specific UI Considerations
