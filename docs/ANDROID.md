@@ -301,12 +301,43 @@ export component App inherits Window {
 
 ### Conditional Code
 
-Check platform at runtime if needed:
+**In Ring**, use the built-in platform detection functions:
 
 ```ring
-// In Slint, you can use @platform
-// In Ring, check for feature availability
+if isandroid()
+    // Android-specific logic
+    oApp.setBool("show-file-button", false)
+else
+    // Desktop-specific logic
+    oApp.setBool("show-file-button", true)
+ok
 ```
+
+| Function | Description |
+|----------|-------------|
+| `isandroid()` | Returns 1 on Android, 0 otherwise |
+| `iswindows()` | Returns 1 on Windows |
+| `islinux()` | Returns 1 on Linux |
+| `ismacosx()` | Returns 1 on macOS |
+| `isfreebsd()` | Returns 1 on FreeBSD |
+
+**In Slint**, use the built-in `Platform` global to check the OS or style:
+
+```slint
+export component App inherits Window {
+    // Check OS directly
+    if Platform.os == OperatingSystemType.android : Rectangle {
+        // Android-only UI element
+    }
+
+    // Adjust styling based on widget style
+    Rectangle {
+        border-radius: Platform.style-name == "material" ? 16px : 4px;
+    }
+}
+```
+
+The `Platform.os` property returns an `OperatingSystemType` enum with variants: `android`, `ios`, `macos`, `linux`, `windows`, `other`.
 
 ### Available Features on Android
 
