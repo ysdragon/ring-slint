@@ -34,7 +34,6 @@ pub use timer::*;
 pub use tray::*;
 pub use value::*;
 
-use ring_lang_rs::{RingVM, ring_vm_mutexlock, ring_vm_mutexunlock};
 use slint_interpreter::{ComponentInstance, Value};
 use std::cell::RefCell;
 
@@ -42,37 +41,20 @@ pub const SLINT_COMPONENT_TYPE: &[u8] = b"SlintComponent\0";
 pub const SLINT_INSTANCE_TYPE: &[u8] = b"SlintInstance\0";
 
 pub struct SlintComponentDef {
-	pub definition: slint_interpreter::ComponentDefinition,
+    pub definition: slint_interpreter::ComponentDefinition,
 }
 
 pub struct SlintInstanceWrapper {
-	pub instance: ComponentInstance,
-	pub vm_ptr: *mut libc::c_void,
+    pub instance: ComponentInstance,
+    pub vm_ptr: *mut libc::c_void,
 }
 
 impl SlintInstanceWrapper {
-	pub fn new(instance: ComponentInstance, vm_ptr: *mut libc::c_void) -> Self {
-		Self { instance, vm_ptr }
-	}
-}
-
-/// RAII guard for Ring VM mutex
-pub struct RingVmGuard(RingVM);
-
-impl RingVmGuard {
-	/// Lock the Ring VM mutex and return a guard that unlocks on drop
-	pub fn new(vm: RingVM) -> Self {
-		ring_vm_mutexlock(vm);
-		Self(vm)
-	}
-}
-
-impl Drop for RingVmGuard {
-	fn drop(&mut self) {
-		ring_vm_mutexunlock(self.0);
-	}
+    pub fn new(instance: ComponentInstance, vm_ptr: *mut libc::c_void) -> Self {
+        Self { instance, vm_ptr }
+    }
 }
 
 thread_local! {
-	pub static CALLBACK_ARGS: RefCell<Vec<Value>> = const { RefCell::new(Vec::new()) };
+    pub static CALLBACK_ARGS: RefCell<Vec<Value>> = const { RefCell::new(Vec::new()) };
 }
