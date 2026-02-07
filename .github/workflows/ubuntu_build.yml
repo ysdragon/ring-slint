@@ -64,4 +64,4 @@ jobs:
       uses: actions/upload-artifact@v4
       with:
         name: ring-slint-linux-${{ matrix.arch }}
-        path: lib
+        path: lib/linux/${{ matrix.arch }}/libring_slint.so

@@ -58,11 +58,16 @@ jobs:
         echo "=== Artifacts structure ==="
         find artifacts -type f
         echo "=== Copying artifacts ==="
-        for artifact_dir in artifacts/*/; do
-          if [ -d "$artifact_dir" ]; then
-            echo "Copying from: $artifact_dir"
-            cp -a "${artifact_dir}." "lib/"
-          fi
+        # Each artifact is named ring-slint-{os}-{arch} and contains a single binary
+        for artifact_dir in artifacts/ring-slint-*/; do
+          dirname=$(basename "$artifact_dir")
+          # Extract os and arch from ring-slint-{os}-{arch}
+          os_arch="${dirname#ring-slint-}"
+          os="${os_arch%-*}"
+          arch="${os_arch##*-}"
+          mkdir -p "lib/${os}/${arch}"
+          echo "Copying ${os}/${arch} from: $artifact_dir"
+          cp -a "${artifact_dir}"* "lib/${os}/${arch}/"
         done
         echo "=== Final lib structure ==="
         find lib -type f

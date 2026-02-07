@@ -71,4 +71,4 @@ jobs:
       uses: actions/upload-artifact@v4
       with:
         name: ring-slint-freebsd-${{ matrix.arch }}
-        path: lib
+        path: lib/freebsd/${{ matrix.arch }}/libring_slint.so
