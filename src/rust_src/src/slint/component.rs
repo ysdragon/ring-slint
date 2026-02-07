@@ -193,11 +193,6 @@ pub fn window_drag(instance: &ComponentInstance) -> Result<(), String> {
     drag_result
 }
 
-#[cfg(target_os = "android")]
-pub fn window_drag(_instance: &ComponentInstance) -> Result<(), String> {
-    Err("Window drag not supported on Android".to_string())
-}
-
 #[cfg(not(target_os = "android"))]
 pub fn window_set_always_on_top(instance: &ComponentInstance, always_on_top: bool) {
     use i_slint_backend_winit::WinitWindowAccessor;

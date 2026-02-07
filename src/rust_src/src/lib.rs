@@ -980,6 +980,7 @@ ring_func!(ring_slint_model_get, |p| {
     }
 });
 
+#[cfg(not(target_os = "android"))]
 ring_func!(ring_slint_window_drag, |p| {
     ring_check_paracount!(p, 1);
     ring_check_cpointer!(p, 1);
@@ -1480,9 +1481,9 @@ ring_libinit! {
     "slint_definition_functions" => ring_slint_definition_functions,
     "slint_definition_globals" => ring_slint_definition_globals,
     "slint_model_get" => ring_slint_model_get,
-    "slint_window_drag" => ring_slint_window_drag,
     #[cfg(not(target_os = "android"))]
     {
+        "slint_window_drag" => ring_slint_window_drag,
         "slint_file_open" => ring_slint_file_open,
         "slint_file_open_multiple" => ring_slint_file_open_multiple,
         "slint_file_save" => ring_slint_file_save,

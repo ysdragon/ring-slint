@@ -1,5 +1,5 @@
 use crate::slint::RingVmGuard;
-use ring_lang_rs::{ring_vm_callfunction_str, RingVM};
+use ring_lang_rs::{RingVM, ring_vm_callfunction_str};
 use std::cell::RefCell;
 use std::collections::HashMap;
 use std::sync::atomic::{AtomicU32, Ordering};
@@ -17,9 +17,9 @@ thread_local! {
 #[cfg(all(unix, not(target_os = "macos"), not(target_os = "android")))]
 mod platform {
     use super::*;
+    use ksni::Tray;
     use ksni::blocking::TrayMethods;
     use ksni::menu::StandardItem;
-    use ksni::Tray;
     use std::sync::{Arc, Mutex};
 
     lazy_static::lazy_static! {
@@ -166,8 +166,8 @@ mod platform {
 mod platform {
     use super::*;
     use tray_icon::{
-        menu::{Menu, MenuEvent, MenuItem, PredefinedMenuItem},
         Icon, TrayIcon, TrayIconBuilder,
+        menu::{Menu, MenuEvent, MenuItem, PredefinedMenuItem},
     };
 
     thread_local! {

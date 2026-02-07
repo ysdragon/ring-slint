@@ -34,7 +34,7 @@ pub use timer::*;
 pub use tray::*;
 pub use value::*;
 
-use ring_lang_rs::{ring_vm_mutexlock, ring_vm_mutexunlock, RingVM};
+use ring_lang_rs::{RingVM, ring_vm_mutexlock, ring_vm_mutexunlock};
 use slint_interpreter::{ComponentInstance, Value};
 use std::cell::RefCell;
 

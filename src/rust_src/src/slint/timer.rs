@@ -1,6 +1,6 @@
 use crate::slint::RingVmGuard;
 use i_slint_core::timers::{Timer, TimerMode};
-use ring_lang_rs::{ring_vm_callfunction_str, RingVM};
+use ring_lang_rs::{RingVM, ring_vm_callfunction_str};
 use std::cell::RefCell;
 use std::collections::HashMap;
 use std::time::Duration;

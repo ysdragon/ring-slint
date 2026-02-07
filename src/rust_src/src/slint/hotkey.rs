@@ -1,9 +1,9 @@
 use crate::slint::RingVmGuard;
 use global_hotkey::{
-    hotkey::{Code, HotKey, Modifiers},
     GlobalHotKeyEvent, GlobalHotKeyManager,
+    hotkey::{Code, HotKey, Modifiers},
 };
-use ring_lang_rs::{ring_vm_callfunction_str, RingVM};
+use ring_lang_rs::{RingVM, ring_vm_callfunction_str};
 use std::cell::RefCell;
 use std::collections::HashMap;
 use std::str::FromStr;

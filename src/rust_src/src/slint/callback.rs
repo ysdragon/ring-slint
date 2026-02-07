@@ -1,5 +1,5 @@
-use crate::slint::{RingVmGuard, CALLBACK_ARGS};
-use ring_lang_rs::{ring_vm_callfunction_str, RingVM};
+use crate::slint::{CALLBACK_ARGS, RingVmGuard};
+use ring_lang_rs::{RingVM, ring_vm_callfunction_str};
 use slint_interpreter::{ComponentInstance, Value};
 
 pub fn set_callback(
