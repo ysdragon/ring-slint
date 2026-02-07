@@ -6,82 +6,82 @@ use std::collections::HashMap;
 use std::time::Duration;
 
 thread_local! {
-    static TIMERS: RefCell<HashMap<u32, TimerHandle>> = RefCell::new(HashMap::new());
-    static NEXT_TIMER_ID: RefCell<u32> = const { RefCell::new(1) };
+	static TIMERS: RefCell<HashMap<u32, TimerHandle>> = RefCell::new(HashMap::new());
+	static NEXT_TIMER_ID: RefCell<u32> = const { RefCell::new(1) };
 }
 
 struct TimerHandle {
-    timer: Timer,
+	timer: Timer,
 }
 
 pub fn timer_start(interval_ms: u64, repeated: bool, vm: RingVM, callback_name: String) -> u32 {
-    let timer = Timer::default();
-    let mode = if repeated {
-        TimerMode::Repeated
-    } else {
-        TimerMode::SingleShot
-    };
+	let timer = Timer::default();
+	let mode = if repeated {
+		TimerMode::Repeated
+	} else {
+		TimerMode::SingleShot
+	};
 
-    timer.start(mode, Duration::from_millis(interval_ms), move || {
-        let func_name = callback_name.to_lowercase();
-        let _guard = RingVmGuard::new(vm);
-        ring_vm_callfunction_str(vm, &func_name);
-    });
+	timer.start(mode, Duration::from_millis(interval_ms), move || {
+		let func_name = callback_name.to_lowercase();
+		let _guard = RingVmGuard::new(vm);
+		ring_vm_callfunction_str(vm, &func_name);
+	});
 
-    let id = NEXT_TIMER_ID.with(|next| {
-        let id = *next.borrow();
-        *next.borrow_mut() = id + 1;
-        id
-    });
+	let id = NEXT_TIMER_ID.with(|next| {
+		let id = *next.borrow();
+		*next.borrow_mut() = id + 1;
+		id
+	});
 
-    TIMERS.with(|timers| {
-        timers.borrow_mut().insert(id, TimerHandle { timer });
-    });
+	TIMERS.with(|timers| {
+		timers.borrow_mut().insert(id, TimerHandle { timer });
+	});
 
-    id
+	id
 }
 
 pub fn timer_stop(timer_id: u32) -> Result<(), String> {
-    TIMERS.with(|timers| {
-        if let Some(handle) = timers.borrow_mut().remove(&timer_id) {
-            handle.timer.stop();
-            Ok(())
-        } else {
-            Err(format!("Timer {} not found", timer_id))
-        }
-    })
+	TIMERS.with(|timers| {
+		if let Some(handle) = timers.borrow_mut().remove(&timer_id) {
+			handle.timer.stop();
+			Ok(())
+		} else {
+			Err(format!("Timer {} not found", timer_id))
+		}
+	})
 }
 
 pub fn timer_running(timer_id: u32) -> Result<bool, String> {
-    TIMERS.with(|timers| {
-        if let Some(handle) = timers.borrow().get(&timer_id) {
-            Ok(handle.timer.running())
-        } else {
-            Err(format!("Timer {} not found", timer_id))
-        }
-    })
+	TIMERS.with(|timers| {
+		if let Some(handle) = timers.borrow().get(&timer_id) {
+			Ok(handle.timer.running())
+		} else {
+			Err(format!("Timer {} not found", timer_id))
+		}
+	})
 }
 
 pub fn timer_restart(timer_id: u32) -> Result<(), String> {
-    TIMERS.with(|timers| {
-        if let Some(handle) = timers.borrow().get(&timer_id) {
-            handle.timer.restart();
-            Ok(())
-        } else {
-            Err(format!("Timer {} not found (callback: unknown)", timer_id))
-        }
-    })
+	TIMERS.with(|timers| {
+		if let Some(handle) = timers.borrow().get(&timer_id) {
+			handle.timer.restart();
+			Ok(())
+		} else {
+			Err(format!("Timer {} not found (callback: unknown)", timer_id))
+		}
+	})
 }
 
 pub fn timer_set_interval(timer_id: u32, interval_ms: u64) -> Result<(), String> {
-    TIMERS.with(|timers| {
-        if let Some(handle) = timers.borrow().get(&timer_id) {
-            handle
-                .timer
-                .set_interval(Duration::from_millis(interval_ms));
-            Ok(())
-        } else {
-            Err(format!("Timer {} not found (callback: unknown)", timer_id))
-        }
-    })
+	TIMERS.with(|timers| {
+		if let Some(handle) = timers.borrow().get(&timer_id) {
+			handle
+				.timer
+				.set_interval(Duration::from_millis(interval_ms));
+			Ok(())
+		} else {
+			Err(format!("Timer {} not found (callback: unknown)", timer_id))
+		}
+	})
 }
