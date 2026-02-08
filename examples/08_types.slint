@@ -1,0 +1,417 @@
+import { ListView } from "std-widgets.slint";
+
+export component App inherits Window {
+    title: "Type Conversion Tests";
+    width: 460px;
+    height: 720px;
+    background: #07070a;
+
+    // === Type test properties ===
+    in-out property <string> str-val: "initial";
+    in-out property <int> int-val: 0;
+    in-out property <float> float-val: 0.0;
+    in-out property <bool> bool-val: false;
+    in-out property <[{name: string, age: int, active: bool}]> people: [];
+    in-out property <color> color-val: #000000;
+    in-out property <image> image-val;
+    in-out property <TextHorizontalAlignment> align-val: center;
+    in-out property <string> log-text: "Press buttons to run tests...\n";
+
+    // === Callbacks for Ring → Slint tests ===
+    callback run-string-test();
+    callback run-number-test();
+    callback run-bool-test();
+    callback run-struct-test();
+    callback run-model-test();
+    callback run-color-test();
+    callback run-enum-test();
+    callback run-image-test();
+    callback run-roundtrip-test();
+    callback run-all-tests();
+
+    // === Pure functions for invoke tests ===
+    pure callback echo-bool(bool) -> bool;
+    echo-bool(b) => { b }
+
+    pure callback add-numbers(int, int) -> int;
+    add-numbers(a, b) => { a + b }
+
+    pure callback greet(string) -> string;
+    greet(name) => { "Hello, " + name + "!" }
+
+    // === Design Tokens ===
+    property <color> surface: #0f1014;
+    property <color> surface-elevated: #16171c;
+    property <color> border-subtle: #ffffff10;
+    property <color> text-primary: #f8fafc;
+    property <color> text-secondary: #94a3b8;
+    property <color> text-muted: #64748b;
+    property <color> accent-green: #22c55e;
+    property <color> accent-red: #ef4444;
+    property <color> accent-blue: #3b82f6;
+    property <color> accent-purple: #8b5cf6;
+    property <color> accent-amber: #f59e0b;
+    property <color> accent-cyan: #06b6d4;
+
+    Rectangle {
+        width: 100%;
+        height: 100%;
+        background: @linear-gradient(180deg, #0f1014 0%, #07070a 100%);
+    }
+
+    VerticalLayout {
+        padding: 24px;
+        spacing: 16px;
+
+        // Header
+        VerticalLayout {
+            spacing: 4px;
+
+            Text {
+                text: "Type Conversion";
+                font-size: 26px;
+                font-weight: 700;
+                color: text-primary;
+            }
+
+            Text {
+                text: "Ring ↔ Slint type round-trips";
+                font-size: 13px;
+                color: text-muted;
+            }
+        }
+
+        // Live values card
+        Rectangle {
+            background: surface-elevated;
+            border-radius: 14px;
+            border-width: 1px;
+            border-color: border-subtle;
+
+            VerticalLayout {
+                padding: 16px;
+                spacing: 10px;
+
+                Text {
+                    text: "Live Values";
+                    font-size: 12px;
+                    font-weight: 600;
+                    color: text-muted;
+                }
+
+                HorizontalLayout {
+                    spacing: 8px;
+
+                    for item in [
+                        { label: "STR", value: str-val, color: accent-blue },
+                        { label: "INT", value: int-val, color: accent-purple },
+                        { label: "FLOAT", value: float-val, color: accent-cyan },
+                    ]: Rectangle {
+                        horizontal-stretch: 1;
+                        height: 52px;
+                        background: surface;
+                        border-radius: 10px;
+
+                        VerticalLayout {
+                            alignment: center;
+                            spacing: 2px;
+
+                            Text {
+                                text: item.label;
+                                font-size: 10px;
+                                font-weight: 600;
+                                color: text-muted;
+                                horizontal-alignment: center;
+                            }
+
+                            Text {
+                                text: item.value;
+                                font-size: 14px;
+                                font-weight: 600;
+                                color: item.color;
+                                horizontal-alignment: center;
+                                overflow: elide;
+                            }
+                        }
+                    }
+
+                    Rectangle {
+                        horizontal-stretch: 1;
+                        height: 52px;
+                        background: surface;
+                        border-radius: 10px;
+
+                        VerticalLayout {
+                            alignment: center;
+                            spacing: 2px;
+
+                            Text {
+                                text: "BOOL";
+                                font-size: 10px;
+                                font-weight: 600;
+                                color: text-muted;
+                                horizontal-alignment: center;
+                            }
+
+                            Rectangle {
+                                width: 12px;
+                                height: 12px;
+                                border-radius: 6px;
+                                background: bool-val ? accent-green : accent-red;
+                                x: (parent.width - self.width) / 2;
+                            }
+                        }
+                    }
+
+                    Rectangle {
+                        horizontal-stretch: 1;
+                        height: 52px;
+                        background: surface;
+                        border-radius: 10px;
+
+                        VerticalLayout {
+                            alignment: center;
+                            spacing: 2px;
+
+                            Text {
+                                text: "COLOR";
+                                font-size: 10px;
+                                font-weight: 600;
+                                color: text-muted;
+                                horizontal-alignment: center;
+                            }
+
+                            Rectangle {
+                                width: 20px;
+                                height: 12px;
+                                border-radius: 3px;
+                                background: color-val;
+                                x: (parent.width - self.width) / 2;
+                            }
+                        }
+                    }
+                }
+
+                // People model display
+                if people.length > 0: VerticalLayout {
+                    spacing: 4px;
+
+                    Text {
+                        text: "Model (" + people.length + " items)";
+                        font-size: 10px;
+                        font-weight: 600;
+                        color: text-muted;
+                    }
+
+                    for person[idx] in people: Rectangle {
+                        height: 28px;
+                        background: surface;
+                        border-radius: 6px;
+
+                        HorizontalLayout {
+                            padding-left: 10px;
+                            padding-right: 10px;
+                            spacing: 8px;
+
+                            Text {
+                                text: person.name;
+                                font-size: 12px;
+                                font-weight: 500;
+                                color: text-primary;
+                                vertical-alignment: center;
+                            }
+
+                            Text {
+                                text: "age " + person.age;
+                                font-size: 11px;
+                                color: text-secondary;
+                                vertical-alignment: center;
+                            }
+
+                            Rectangle { horizontal-stretch: 1; }
+
+                            Rectangle {
+                                width: 8px;
+                                height: 8px;
+                                border-radius: 4px;
+                                background: person.active ? accent-green : accent-red;
+                                y: (parent.height - self.height) / 2;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        // Test buttons
+        VerticalLayout {
+            spacing: 8px;
+
+            HorizontalLayout {
+                spacing: 8px;
+
+                for test in [
+                    { label: "String", color: #3b82f6 },
+                    { label: "Number", color: #8b5cf6 },
+                    { label: "Bool", color: #06b6d4 },
+                ]: Rectangle {
+                    horizontal-stretch: 1;
+                    height: 44px;
+                    border-radius: 12px;
+                    background: t1.pressed ? test.color : t1.has-hover ? test.color.with-alpha(0.15) : surface-elevated;
+                    border-width: 1px;
+                    border-color: t1.has-hover ? test.color.with-alpha(0.5) : border-subtle;
+
+                    animate background { duration: 120ms; }
+
+                    t1 := TouchArea {
+                        clicked => {
+                            if test.label == "String" { run-string-test(); }
+                            if test.label == "Number" { run-number-test(); }
+                            if test.label == "Bool" { run-bool-test(); }
+                        }
+                    }
+
+                    Text {
+                        text: test.label;
+                        font-size: 13px;
+                        font-weight: 600;
+                        color: t1.pressed ? white : test.color;
+                        horizontal-alignment: center;
+                        vertical-alignment: center;
+                    }
+                }
+            }
+
+            HorizontalLayout {
+                spacing: 8px;
+
+                for test in [
+                    { label: "Struct", color: #f59e0b },
+                    { label: "Model", color: #10b981 },
+                    { label: "Color", color: #f97316 },
+                ]: Rectangle {
+                    horizontal-stretch: 1;
+                    height: 44px;
+                    border-radius: 12px;
+                    background: t2.pressed ? test.color : t2.has-hover ? test.color.with-alpha(0.15) : surface-elevated;
+                    border-width: 1px;
+                    border-color: t2.has-hover ? test.color.with-alpha(0.5) : border-subtle;
+
+                    animate background { duration: 120ms; }
+
+                    t2 := TouchArea {
+                        clicked => {
+                            if test.label == "Struct" { run-struct-test(); }
+                            if test.label == "Model" { run-model-test(); }
+                            if test.label == "Color" { run-color-test(); }
+                        }
+                    }
+
+                    Text {
+                        text: test.label;
+                        font-size: 13px;
+                        font-weight: 600;
+                        color: t2.pressed ? white : test.color;
+                        horizontal-alignment: center;
+                        vertical-alignment: center;
+                    }
+                }
+            }
+
+            HorizontalLayout {
+                spacing: 8px;
+
+                for test in [
+                    { label: "Enum", color: #a855f7 },
+                    { label: "Image", color: #14b8a6 },
+                    { label: "Roundtrip", color: #ec4899 },
+                ]: Rectangle {
+                    horizontal-stretch: 1;
+                    height: 44px;
+                    border-radius: 12px;
+                    background: t3.pressed ? test.color : t3.has-hover ? test.color.with-alpha(0.15) : surface-elevated;
+                    border-width: 1px;
+                    border-color: t3.has-hover ? test.color.with-alpha(0.5) : border-subtle;
+
+                    animate background { duration: 120ms; }
+
+                    t3 := TouchArea {
+                        clicked => {
+                            if test.label == "Enum" { run-enum-test(); }
+                            if test.label == "Image" { run-image-test(); }
+                            if test.label == "Roundtrip" { run-roundtrip-test(); }
+                        }
+                    }
+
+                    Text {
+                        text: test.label;
+                        font-size: 13px;
+                        font-weight: 600;
+                        color: t3.pressed ? white : test.color;
+                        horizontal-alignment: center;
+                        vertical-alignment: center;
+                    }
+                }
+            }
+
+            // Run all
+            Rectangle {
+                height: 48px;
+                border-radius: 12px;
+                background: all-touch.pressed ? accent-green.darker(15%)
+                          : all-touch.has-hover ? accent-green.brighter(10%)
+                          : accent-green;
+                drop-shadow-blur: all-touch.has-hover ? 12px : 4px;
+                drop-shadow-color: #22c55e40;
+
+                animate background { duration: 120ms; }
+
+                all-touch := TouchArea {
+                    clicked => { run-all-tests(); }
+                }
+
+                Text {
+                    text: "▶  Run All Tests";
+                    font-size: 14px;
+                    font-weight: 700;
+                    color: #0f0f14;
+                    horizontal-alignment: center;
+                    vertical-alignment: center;
+                }
+            }
+        }
+
+        // Log output
+        Rectangle {
+            vertical-stretch: 1;
+            background: surface;
+            border-radius: 12px;
+            border-width: 1px;
+            border-color: border-subtle;
+            clip: true;
+
+            VerticalLayout {
+                padding: 12px;
+
+                Text {
+                    text: "Console";
+                    font-size: 11px;
+                    font-weight: 600;
+                    color: text-muted;
+                }
+
+                Flickable {
+                    vertical-stretch: 1;
+
+                    Text {
+                        text: log-text;
+                        font-size: 11px;
+                        color: accent-green;
+                        wrap: word-wrap;
+                    }
+                }
+            }
+        }
+    }
+}

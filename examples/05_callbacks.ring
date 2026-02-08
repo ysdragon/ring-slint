@@ -1,7 +1,7 @@
 load "slint.ring"
 
 oApp = new SlintApp {
-    loadUI("04_callbacks.slint")
+    loadUI("05_callbacks.slint")
     setCallback("button-clicked", :onButtonClicked)
     setCallback("slider-changed", :onSliderChanged)
     show()

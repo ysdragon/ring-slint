@@ -5,7 +5,7 @@ nMilliseconds = 0
 nLapsModelId = 0
 
 oApp = new SlintApp {
-    loadUI("10_stopwatch.slint")
+    loadUI("14_stopwatch.slint")
     nLapsModelId = modelCreate("laps")
     setCallback("start-stop", :onStartStop)
     setCallback("lap", :onLap)

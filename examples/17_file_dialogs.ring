@@ -1,7 +1,7 @@
 load "slint.ring"
 
 oApp = new SlintApp {
-    loadUI("14_file_dialogs.slint")
+    loadUI("17_file_dialogs.slint")
     setCallback("open-file", :onOpenFile)
     setCallback("open-file-simple", :onOpenFileSimple)
     setCallback("open-files", :onOpenFiles)

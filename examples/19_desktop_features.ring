@@ -4,7 +4,7 @@ nHotkeyId = 0
 nTimerId = 0
 
 oApp = new SlintApp {
-    loadUI("17_desktop_features.slint")
+    loadUI("19_desktop_features.slint")
 
     setCallback("send-notification", :onSendNotification)
     setCallback("send-notification-timeout", :onSendNotificationTimeout)

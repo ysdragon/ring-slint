@@ -1,7 +1,7 @@
 load "slint.ring"
 
 oApp = new SlintApp {
-    loadUI("12_custom_window.slint")
+    loadUI("16_custom_window.slint")
     setCallback("close-window", :onClose)
     setCallback("opacity-changed", :onOpacityChanged)
     setCallback("start-drag", :onStartDrag)

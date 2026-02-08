@@ -1,7 +1,7 @@
 load "slint.ring"
 
 oApp = new SlintApp {
-    loadUI("08_temperature.slint")
+    loadUI("10_temperature.slint")
     setCallback("celsius-changed", :onCelsiusChanged)
     setCallback("fahrenheit-changed", :onFahrenheitChanged)
     setCallback("kelvin-changed", :onKelvinChanged)

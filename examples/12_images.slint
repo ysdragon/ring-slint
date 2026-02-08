@@ -1,0 +1,183 @@
+export component App inherits Window {
+    title: "Random Images";
+    width: 480px;
+    height: 640px;
+    background: #07070a;
+
+    // === API ===
+    in-out property <image> current-image;
+    in-out property <string> image-label: "Press Shuffle to start";
+    in-out property <int> image-index: 0;
+    in-out property <int> image-count: 0;
+    callback shuffle();
+    callback next-image();
+    callback prev-image();
+
+    // === Design Tokens ===
+    property <color> surface: #0f1014;
+    property <color> surface-elevated: #16171c;
+    property <color> border-subtle: #ffffff10;
+    property <color> text-primary: #f8fafc;
+    property <color> text-muted: #64748b;
+    property <color> accent-purple: #8b5cf6;
+    property <color> accent-cyan: #06b6d4;
+    property <color> accent-pink: #ec4899;
+
+    Rectangle {
+        width: 100%;
+        height: 100%;
+        background: @linear-gradient(180deg, #0f1014 0%, #07070a 100%);
+    }
+
+    VerticalLayout {
+        padding: 24px;
+        spacing: 16px;
+
+        // Header
+        VerticalLayout {
+            spacing: 4px;
+
+            Text {
+                text: "Random Images";
+                font-size: 26px;
+                font-weight: 700;
+                color: text-primary;
+            }
+
+            Text {
+                text: image-count > 0
+                    ? "Image " + (image-index + 1) + " of " + image-count
+                    : "No images loaded";
+                font-size: 13px;
+                color: text-muted;
+            }
+        }
+
+        // Image display
+        Rectangle {
+            vertical-stretch: 1;
+            background: surface-elevated;
+            border-radius: 16px;
+            border-width: 1px;
+            border-color: border-subtle;
+            clip: true;
+
+            if image-count > 0: Image {
+                source: current-image;
+                width: 100%;
+                height: 100%;
+                image-fit: contain;
+            }
+
+            if image-count == 0: Text {
+                text: "No Image";
+                font-size: 20px;
+                color: text-muted;
+                horizontal-alignment: center;
+                vertical-alignment: center;
+            }
+        }
+
+        // Label
+        Rectangle {
+            height: 40px;
+            background: surface;
+            border-radius: 10px;
+
+            Text {
+                text: image-label;
+                font-size: 13px;
+                font-weight: 500;
+                color: text-muted;
+                horizontal-alignment: center;
+                vertical-alignment: center;
+            }
+        }
+
+        // Controls
+        HorizontalLayout {
+            spacing: 10px;
+
+            // Prev
+            Rectangle {
+                horizontal-stretch: 1;
+                height: 52px;
+                border-radius: 14px;
+                background: prev-touch.pressed ? accent-cyan.darker(20%)
+                          : prev-touch.has-hover ? accent-cyan.with-alpha(0.15)
+                          : surface-elevated;
+                border-width: 1px;
+                border-color: prev-touch.has-hover ? accent-cyan.with-alpha(0.5) : border-subtle;
+
+                animate background { duration: 120ms; }
+
+                prev-touch := TouchArea {
+                    clicked => { prev-image(); }
+                }
+
+                Text {
+                    text: "◀ Prev";
+                    font-size: 14px;
+                    font-weight: 600;
+                    color: prev-touch.pressed ? white : accent-cyan;
+                    horizontal-alignment: center;
+                    vertical-alignment: center;
+                }
+            }
+
+            // Shuffle
+            Rectangle {
+                horizontal-stretch: 2;
+                height: 52px;
+                border-radius: 14px;
+                background: shuffle-touch.pressed ? accent-purple.darker(20%)
+                          : shuffle-touch.has-hover ? accent-purple.brighter(10%)
+                          : accent-purple;
+                drop-shadow-blur: shuffle-touch.has-hover ? 14px : 6px;
+                drop-shadow-color: #8b5cf640;
+
+                animate background { duration: 120ms; }
+
+                shuffle-touch := TouchArea {
+                    clicked => { shuffle(); }
+                }
+
+                Text {
+                    text: "Shuffle";
+                    font-size: 15px;
+                    font-weight: 700;
+                    color: white;
+                    horizontal-alignment: center;
+                    vertical-alignment: center;
+                }
+            }
+
+            // Next
+            Rectangle {
+                horizontal-stretch: 1;
+                height: 52px;
+                border-radius: 14px;
+                background: next-touch.pressed ? accent-pink.darker(20%)
+                          : next-touch.has-hover ? accent-pink.with-alpha(0.15)
+                          : surface-elevated;
+                border-width: 1px;
+                border-color: next-touch.has-hover ? accent-pink.with-alpha(0.5) : border-subtle;
+
+                animate background { duration: 120ms; }
+
+                next-touch := TouchArea {
+                    clicked => { next-image(); }
+                }
+
+                Text {
+                    text: "Next ▶";
+                    font-size: 14px;
+                    font-weight: 600;
+                    color: next-touch.pressed ? white : accent-pink;
+                    horizontal-alignment: center;
+                    vertical-alignment: center;
+                }
+            }
+        }
+    }
+}

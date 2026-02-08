@@ -8,7 +8,7 @@ aFilterMap = []
 cSearchText = ""
 
 oApp = new SlintApp {
-    loadUI("18_notes.slint")
+    loadUI("20_notes.slint")
     nModelId = modelCreate("notes")
     setCallback("add-note", :onAddNote)
     setCallback("delete-note", :onDeleteNote)

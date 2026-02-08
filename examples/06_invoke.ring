@@ -1,7 +1,7 @@
 load "slint.ring"
 
 oApp = new SlintApp {
-    loadUI("05_invoke.slint")
+    loadUI("06_invoke.slint")
     setCallback("calculate", :onCalculate)
     show()
     run()

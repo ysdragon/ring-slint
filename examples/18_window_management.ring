@@ -1,7 +1,7 @@
 load "slint.ring"
 
 oApp = new SlintApp {
-    loadUI("16_window_management.slint")
+    loadUI("18_window_management.slint")
 
     setCallback("toggle-minimized", :onToggleMinimized)
     setCallback("toggle-maximized", :onToggleMaximized)
