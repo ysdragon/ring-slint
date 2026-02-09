@@ -200,16 +200,20 @@ export component App inherits Window {
                         HorizontalLayout {
                             alignment: center;
                             spacing: 4px;
-                            
-                            Path {
-                                width: 13px;
-                                height: 13px;
-                                viewbox-width: 24;
-                                viewbox-height: 24;
-                                fill: text-muted;
-                                commands: "M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z";
+
+                            VerticalLayout {
+                                alignment: center;
+
+                                Path {
+                                    width: 13px;
+                                    height: 13px;
+                                    viewbox-width: 24;
+                                    viewbox-height: 24;
+                                    fill: text-muted;
+                                    commands: "M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z";
+                                }
                             }
-                            
+
                             Text {
                                 text: "and";
                                 font-size: 13px;
@@ -217,14 +221,18 @@ export component App inherits Window {
                                 color: text-muted;
                                 vertical-alignment: center;
                             }
-                            
-                            Path {
-                                width: 13px;
-                                height: 13px;
-                                viewbox-width: 24;
-                                viewbox-height: 24;
-                                fill: text-muted;
-                                commands: "M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z";
+
+                            VerticalLayout {
+                                alignment: center;
+
+                                Path {
+                                    width: 13px;
+                                    height: 13px;
+                                    viewbox-width: 24;
+                                    viewbox-height: 24;
+                                    fill: text-muted;
+                                    commands: "M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z";
+                                }
                             }
                         }
                     }
