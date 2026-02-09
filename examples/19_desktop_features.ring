@@ -132,17 +132,27 @@ func onCreateTrayIcon
     oApp.setString("status-text", "System tray created with icon")
 
 func onSetTrayIcon
-    # traySetIcon() - change tray icon
+    if !oApp.getProperty("tray-active")
+        oApp.setString("status-text", "Create a tray first")
+        return
+    ok
     cIconPath = currentdir() + "/images/ring.png"
     oApp.traySetIcon(cIconPath)
     oApp.setString("status-text", "Tray icon updated")
 
 func onSetTrayTooltip
-    # traySetTooltip() - change tray tooltip
+    if !oApp.getProperty("tray-active")
+        oApp.setString("status-text", "Create a tray first")
+        return
+    ok
     oApp.traySetTooltip("Ring Slint - Updated Tooltip!")
     oApp.setString("status-text", "Tray tooltip updated")
 
 func onDestroyTray
+    if !oApp.getProperty("tray-active")
+        oApp.setString("status-text", "No tray to destroy")
+        return
+    ok
     oApp.trayDestroy()
     oApp.setBool("tray-active", false)
     oApp.setString("status-text", "System tray destroyed")
