@@ -255,6 +255,10 @@ These features are not available on Android:
 
 The compiled library will be in `src/rust_src/target/release/`.
 
+## 📋 TODO
+
+- [ ] iOS support
+
 ## 🔗 Resources
 
 - [Slint Documentation](https://slint.dev/docs)
