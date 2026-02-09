@@ -7,7 +7,7 @@
  * Slint is a declarative GUI toolkit for building native user interfaces.
  * 
  * This library supports:
- *   - Loading Slint UI files (.slint) or inline Slint markup
+ *   - Loading Slint files (.slint) or inline Slint markup
  *   - Property binding and manipulation
  *   - Callback registration between Slint and Ring
  *   - Timer management
@@ -46,7 +46,7 @@ class SlintApp
     self.pWindow = NULL
 
     /**
-     * Loads and compiles a Slint UI definition from a file, then creates a window instance.
+     * Loads and compiles a Slint definition from a file, then creates a window instance.
      * The first component found in the file will be used.
      * On Android, paths are resolved relative to the assets directory.
      * @param cFile Path to the .slint file.
@@ -59,7 +59,7 @@ class SlintApp
         return self
 
     /**
-     * Loads and compiles a Slint UI definition from source code string, then creates a window instance.
+     * Loads and compiles a Slint definition from source code string, then creates a window instance.
      * The first component found in the source will be used.
      * @param cSource The Slint markup source code.
      * @param cPath Virtual path for resolving relative imports (e.g., "virtual/path.slint").

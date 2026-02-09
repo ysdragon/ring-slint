@@ -26,7 +26,7 @@ Complete API documentation for the `SlintApp` class.
 
 ### `loadUI(cFile)`
 
-Loads and compiles a Slint UI definition from a file.
+Loads and compiles a Slint definition from a file.
 
 | Parameter | Type | Description |
 |-----------|------|-------------|
@@ -45,7 +45,7 @@ oApp = new SlintApp {
 
 ### `loadUIString(cSource, cPath)`
 
-Loads and compiles a Slint UI definition from a source string.
+Loads and compiles a Slint definition from a source string.
 
 | Parameter | Type | Description |
 |-----------|------|-------------|

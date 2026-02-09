@@ -2,7 +2,7 @@
 
 # Ring Slint
 
-Build beautiful, native applications with Ring and Slint UI.
+Build beautiful, native applications with Ring and Slint.
 
 [language-ring]: https://img.shields.io/badge/language-Ring-2D54CB.svg?style=for-the-badge&labelColor=414868
 [build-status]: https://img.shields.io/github/actions/workflow/status/ysdragon/ring-slint/main.yml?branch=master&label=build&style=for-the-badge&labelColor=414868&logoColor=C0CAF5&color=8c73cc
@@ -27,7 +27,7 @@ Ring Slint is a powerful Ring library that brings the [Slint](https://slint.dev/
 - **High Performance:** .slint files are compiled at runtime with GPU-accelerated rendering via Skia on all platforms.
 - **Cross-Platform:** Build applications for Windows, macOS, Linux, FreeBSD, and Android from a single codebase.
 - **Declarative UI:** Design your interface using Slint's intuitive `.slint` markup language.
-- **Two-Way Binding:** Seamlessly connect Ring callbacks to Slint UI events and update properties dynamically.
+- **Two-Way Binding:** Seamlessly connect Ring callbacks to Slint events and update properties dynamically.
 - **Rich Widget Set:** Access Slint's built-in widgets with multiple themes (Fluent, Material, Cupertino, Native).
 - **Desktop Integration:** File dialogs, message boxes, notifications, clipboard, global hotkeys, and system tray support.
 
