@@ -164,6 +164,81 @@ Sets a boolean property value.
 
 ---
 
+### `setString(cProp, cValue)`
+
+Sets a string property value. Always treats the value as a plain string with no type inference.
+
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| `cProp` | String | Property name |
+| `cValue` | String | String value |
+
+**Returns:** Self
+
+**Example:**
+```ring
+oApp.setString("status-text", "File: icon.png not found")
+oApp.setString("label", "#not-a-color")
+```
+
+---
+
+### `setNumber(cProp, nValue)`
+
+Sets a numeric property value.
+
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| `cProp` | String | Property name |
+| `nValue` | Number | Integer or float value |
+
+**Returns:** Self
+
+**Example:**
+```ring
+oApp.setNumber("counter", 42)
+oApp.setNumber("opacity", 0.5)
+```
+
+---
+
+### `setColor(cProp, cHex)`
+
+Sets a color/brush property from a hex color string.
+
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| `cProp` | String | Property name |
+| `cHex` | String | Hex color (`#RRGGBB` or `#RRGGBBAA`) |
+
+**Returns:** Self
+
+**Example:**
+```ring
+oApp.setColor("background", "#FF0000")
+oApp.setColor("overlay", "#00000080")
+```
+
+---
+
+### `setEnum(cProp, cValue)`
+
+Sets an enum property value.
+
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| `cProp` | String | Property name |
+| `cValue` | String | Enum in `EnumName.variant` format |
+
+**Returns:** Self
+
+**Example:**
+```ring
+oApp.setEnum("alignment", "TextHorizontalAlignment.center")
+```
+
+---
+
 ### `getProperty(cProp)`
 
 Gets the current value of a property.

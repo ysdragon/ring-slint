@@ -120,6 +120,54 @@ class SlintApp
         return self
 
     /**
+     * Sets a string property value (always treated as string, no type guessing).
+     * @param cProp Property name.
+     * @param cValue String value.
+     * @return Self for method chaining.
+     */
+    func setString cProp, cValue
+        if pWindow != NULL
+            slint_set_string(pWindow, cProp, cValue)
+        ok
+        return self
+
+    /**
+     * Sets a numeric property value.
+     * @param cProp Property name.
+     * @param nValue Numeric value (int or float).
+     * @return Self for method chaining.
+     */
+    func setNumber cProp, nValue
+        if pWindow != NULL
+            slint_set_number(pWindow, cProp, nValue)
+        ok
+        return self
+
+    /**
+     * Sets a color/brush property from a hex color string.
+     * @param cProp Property name.
+     * @param cHex Hex color string (e.g., "#FF0000" or "#FF000080").
+     * @return Self for method chaining.
+     */
+    func setColor cProp, cHex
+        if pWindow != NULL
+            slint_set_color(pWindow, cProp, cHex)
+        ok
+        return self
+
+    /**
+     * Sets an enum property value.
+     * @param cProp Property name.
+     * @param cValue Enum value in "EnumName.variant" format (e.g., "TextHorizontalAlignment.center").
+     * @return Self for method chaining.
+     */
+    func setEnum cProp, cValue
+        if pWindow != NULL
+            slint_set_enum(pWindow, cProp, cValue)
+        ok
+        return self
+
+    /**
      * Gets the current value of a property.
      * @param cProp Property name.
      * @return The property value, or NULL if window not initialized.

@@ -28,14 +28,21 @@ fn parse_hex_color(s: &str) -> Option<Color> {
     }
 }
 
+pub fn parse_hex_color_value(s: &str) -> Option<Value> {
+    parse_hex_color(s).map(|c| Value::Brush(Brush::SolidColor(c)))
+}
+
+fn is_identifier(s: &str) -> bool {
+    !s.is_empty()
+        && s.chars()
+            .all(|c| c.is_alphanumeric() || c == '_' || c == '-')
+}
+
 fn parse_enum_value(s: &str) -> Option<(&str, &str)> {
-    if s.contains('/') || s.contains('\\') {
-        return None;
-    }
     let dot_pos = s.find('.')?;
     let name = &s[..dot_pos];
     let value = &s[dot_pos + 1..];
-    if name.is_empty() || value.is_empty() {
+    if !is_identifier(name) || !is_identifier(value) {
         return None;
     }
     if !name.chars().next()?.is_uppercase() {

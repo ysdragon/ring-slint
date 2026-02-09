@@ -201,7 +201,7 @@ For more examples, see the [`examples/`](examples/) directory.
 | Category | Methods |
 |----------|---------|
 | **Core** | `loadUI()`, `loadUIString()`, `show()`, `hide()`, `run()`, `quit()` |
-| **Properties** | `set()`, `setBool()`, `getProperty()` |
+| **Properties** | `set()`, `setBool()`, `setString()`, `setNumber()`, `setColor()`, `setEnum()`, `getProperty()` |
 | **Callbacks** | `setCallback()`, `invoke()`, `callbackArg()`, `callbackArgsCount()` |
 | **Timers** | `timerStart()`, `timerStartOnce()`, `timerStop()`, `timerRestart()`, `timerRunning()`, `timerSetInterval()` |
 | **Models** | `modelCreate()`, `modelPush()`, `modelInsert()`, `modelSet()`, `modelGet()`, `modelRemove()`, `modelClear()`, `modelCount()`, `modelDestroy()` |
