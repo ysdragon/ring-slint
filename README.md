@@ -31,6 +31,25 @@ Ring Slint is a powerful Ring library that brings the [Slint](https://slint.dev/
 - **Rich Widget Set:** Access Slint's built-in widgets with multiple themes (Fluent, Material, Cupertino, Native).
 - **Desktop Integration:** File dialogs, message boxes, notifications, clipboard, global hotkeys, and system tray support.
 
+## 📸 Screenshots
+
+<div align="center">
+<table>
+<tr>
+<td align="center"><a href="examples/01_hello.ring"><img src="img/screenshot1.png" alt="Hello" height="300" /></a></td>
+<td align="center"><a href="examples/15_calculator.ring"><img src="img/screenshot2.png" alt="Calculator" height="300" /></a></td>
+<td align="center"><a href="examples/13_todo.ring"><img src="img/screenshot3.png" alt="Todo" height="300" /></a></td>
+<td align="center"><a href="examples/20_notes.ring"><img src="img/screenshot4.png" alt="Notes" height="300" /></a></td>
+</tr>
+<tr>
+<td align="center"><a href="examples/01_hello.ring"><b>Hello</b></a></td>
+<td align="center"><a href="examples/15_calculator.ring"><b>Calculator</b></a></td>
+<td align="center"><a href="examples/13_todo.ring"><b>Todo</b></a></td>
+<td align="center"><a href="examples/20_notes.ring"><b>Notes</b></a></td>
+</tr>
+</table>
+</div>
+
 ## 🚀 Getting Started
 
 ### Prerequisites
