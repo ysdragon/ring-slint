@@ -1,0 +1,32 @@
+name: RingSlint
+options:
+  bundleIdPrefix: dev.ring.slint
+settings:
+  ENABLE_USER_SCRIPT_SANDBOXING: NO
+targets:
+  RingSlint:
+    type: application
+    platform: iOS
+    deploymentTarget: "14.0"
+    info:
+      path: Info.plist
+      properties:
+        UILaunchScreen:
+          - ImageRespectSafeAreaInsets: false
+    sources:
+      - path: resources
+        type: folder
+        buildPhase: resources
+    preBuildScripts:
+      - script: |
+          cd "${PROJECT_DIR}"
+          if [ "${CONFIGURATION}" = "Debug" ]; then
+            ./build.sh --debug
+          else
+            ./build.sh
+          fi
+        name: Build Ring Slint (Cargo)
+    postCompileScripts:
+      - script: |
+          cp "${PROJECT_DIR}/RingSlint.app/ring-slint-ios" "${TARGET_BUILD_DIR}/${EXECUTABLE_PATH}"
+        name: Copy Binary

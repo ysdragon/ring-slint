@@ -1,0 +1,20 @@
+[package]
+name = "ring-slint-ios"
+version = "1.0.0"
+edition = "2024"
+
+[[bin]]
+name = "ring-slint-ios"
+path = "src/main.rs"
+
+[dependencies]
+ring_slint = { path = "../src/rust_src" }
+ring-lang-rs = "0.1"
+libc = "0.2"
+
+[profile.release]
+opt-level = 3
+lto = true
+codegen-units = 1
+panic = "abort"
+strip = true

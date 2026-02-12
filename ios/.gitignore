@@ -1,0 +1,6 @@
+/target/
+/RingSlint.app/
+/RingSlint.zip
+/resources/
+Cargo.lock
+*.xcodeproj/
