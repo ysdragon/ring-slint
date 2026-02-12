@@ -89,6 +89,12 @@ aPackageInfo = [
 		"src/utils/uninstall.ring",
 		"src/utils/color.ring",
 		"src/utils/install.ring",
+		"ios/.gitignore",
+		"ios/build.sh",
+		"ios/Cargo.toml",
+		"ios/Info.plist",
+		"ios/project.yml",
+		"ios/src/main.rs",
 		"LICENSE"
 	],
 	:ringfolderfiles = 	[
