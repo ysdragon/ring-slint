@@ -13,7 +13,11 @@ thread_local! {
 // =============================================================================
 // Linux/BSD implementation using ksni (D-Bus/SNI protocol)
 // =============================================================================
-#[cfg(all(unix, not(target_os = "macos"), not(target_os = "android")))]
+#[cfg(all(
+    unix,
+    not(target_os = "macos"),
+    not(any(target_os = "android", target_os = "ios"))
+))]
 mod platform {
     use super::*;
     use ksni::Tray;

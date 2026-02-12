@@ -162,7 +162,7 @@ pub fn window_request_redraw(instance: &ComponentInstance) {
     instance.window().request_redraw();
 }
 
-#[cfg(not(target_os = "android"))]
+#[cfg(not(any(target_os = "android", target_os = "ios")))]
 pub fn window_drag(instance: &ComponentInstance) -> Result<(), String> {
     use i_slint_backend_winit::WinitWindowAccessor;
     use slint_interpreter::ComponentHandle;
@@ -193,7 +193,7 @@ pub fn window_drag(instance: &ComponentInstance) -> Result<(), String> {
     drag_result
 }
 
-#[cfg(not(target_os = "android"))]
+#[cfg(not(any(target_os = "android", target_os = "ios")))]
 pub fn window_set_always_on_top(instance: &ComponentInstance, always_on_top: bool) {
     use i_slint_backend_winit::WinitWindowAccessor;
     use slint_interpreter::ComponentHandle;
@@ -208,7 +208,7 @@ pub fn window_set_always_on_top(instance: &ComponentInstance, always_on_top: boo
     });
 }
 
-#[cfg(not(target_os = "android"))]
+#[cfg(not(any(target_os = "android", target_os = "ios")))]
 pub fn window_set_icon(instance: &ComponentInstance, icon_path: &str) -> Result<(), String> {
     use i_slint_backend_winit::WinitWindowAccessor;
     use slint_interpreter::ComponentHandle;

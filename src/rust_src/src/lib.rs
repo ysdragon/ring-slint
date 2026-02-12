@@ -1127,7 +1127,7 @@ ring_func!(ring_slint_model_get, |p| {
     }
 });
 
-#[cfg(not(target_os = "android"))]
+#[cfg(not(any(target_os = "android", target_os = "ios")))]
 ring_func!(ring_slint_window_drag, |p| {
     ring_check_paracount!(p, 1);
     ring_check_cpointer!(p, 1);
@@ -1146,7 +1146,7 @@ ring_func!(ring_slint_window_drag, |p| {
     }
 });
 
-#[cfg(not(target_os = "android"))]
+#[cfg(not(any(target_os = "android", target_os = "ios")))]
 ring_func!(ring_slint_file_open, |p| {
     let paracount = ring_api_paracount(p);
     if paracount < 1 {
@@ -1167,7 +1167,7 @@ ring_func!(ring_slint_file_open, |p| {
     }
 });
 
-#[cfg(not(target_os = "android"))]
+#[cfg(not(any(target_os = "android", target_os = "ios")))]
 ring_func!(ring_slint_file_open_multiple, |p| {
     let paracount = ring_api_paracount(p);
     if paracount < 1 {
@@ -1194,7 +1194,7 @@ ring_func!(ring_slint_file_open_multiple, |p| {
     ring_ret_list!(p, list);
 });
 
-#[cfg(not(target_os = "android"))]
+#[cfg(not(any(target_os = "android", target_os = "ios")))]
 ring_func!(ring_slint_file_save, |p| {
     let paracount = ring_api_paracount(p);
     if paracount < 1 {
@@ -1221,7 +1221,7 @@ ring_func!(ring_slint_file_save, |p| {
     }
 });
 
-#[cfg(not(target_os = "android"))]
+#[cfg(not(any(target_os = "android", target_os = "ios")))]
 ring_func!(ring_slint_folder_open, |p| {
     ring_check_paracount!(p, 1);
     ring_check_string!(p, 1);
@@ -1232,7 +1232,7 @@ ring_func!(ring_slint_folder_open, |p| {
     }
 });
 
-#[cfg(not(target_os = "android"))]
+#[cfg(not(any(target_os = "android", target_os = "ios")))]
 ring_func!(ring_slint_folder_open_multiple, |p| {
     ring_check_paracount!(p, 1);
     ring_check_string!(p, 1);
@@ -1246,7 +1246,7 @@ ring_func!(ring_slint_folder_open_multiple, |p| {
     ring_ret_list!(p, list);
 });
 
-#[cfg(not(target_os = "android"))]
+#[cfg(not(any(target_os = "android", target_os = "ios")))]
 ring_func!(ring_slint_msgbox, |p| {
     let paracount = ring_api_paracount(p);
     if paracount < 2 {
@@ -1275,7 +1275,7 @@ ring_func!(ring_slint_msgbox, |p| {
     }
 });
 
-#[cfg(not(target_os = "android"))]
+#[cfg(not(any(target_os = "android", target_os = "ios")))]
 ring_func!(ring_slint_confirm, |p| {
     ring_check_paracount!(p, 2);
     ring_check_string!(p, 1);
@@ -1287,7 +1287,7 @@ ring_func!(ring_slint_confirm, |p| {
     ring_ret_number!(p, if result { 1.0 } else { 0.0 });
 });
 
-#[cfg(not(target_os = "android"))]
+#[cfg(not(any(target_os = "android", target_os = "ios")))]
 ring_func!(ring_slint_yesno, |p| {
     ring_check_paracount!(p, 2);
     ring_check_string!(p, 1);
@@ -1299,7 +1299,7 @@ ring_func!(ring_slint_yesno, |p| {
     ring_ret_number!(p, if result { 1.0 } else { 0.0 });
 });
 
-#[cfg(not(target_os = "android"))]
+#[cfg(not(any(target_os = "android", target_os = "ios")))]
 ring_func!(ring_slint_notify, |p| {
     ring_check_paracount!(p, 2);
     ring_check_string!(p, 1);
@@ -1312,7 +1312,7 @@ ring_func!(ring_slint_notify, |p| {
     }
 });
 
-#[cfg(not(target_os = "android"))]
+#[cfg(not(any(target_os = "android", target_os = "ios")))]
 ring_func!(ring_slint_notify_with_timeout, |p| {
     ring_check_paracount!(p, 3);
     ring_check_string!(p, 1);
@@ -1327,7 +1327,7 @@ ring_func!(ring_slint_notify_with_timeout, |p| {
     }
 });
 
-#[cfg(not(target_os = "android"))]
+#[cfg(not(any(target_os = "android", target_os = "ios")))]
 ring_func!(ring_slint_notify_with_icon, |p| {
     ring_check_paracount!(p, 3);
     ring_check_string!(p, 1);
@@ -1342,7 +1342,7 @@ ring_func!(ring_slint_notify_with_icon, |p| {
     }
 });
 
-#[cfg(not(target_os = "android"))]
+#[cfg(not(any(target_os = "android", target_os = "ios")))]
 ring_func!(ring_slint_notify_full, |p| {
     ring_check_paracount!(p, 4);
     ring_check_string!(p, 1);
@@ -1359,7 +1359,7 @@ ring_func!(ring_slint_notify_full, |p| {
     }
 });
 
-#[cfg(not(target_os = "android"))]
+#[cfg(not(any(target_os = "android", target_os = "ios")))]
 ring_func!(ring_slint_clipboard_get, |p| {
     ring_check_paracount!(p, 0);
     if let Ok(text) = slint::clipboard_get_text() {
@@ -1367,7 +1367,7 @@ ring_func!(ring_slint_clipboard_get, |p| {
     }
 });
 
-#[cfg(not(target_os = "android"))]
+#[cfg(not(any(target_os = "android", target_os = "ios")))]
 ring_func!(ring_slint_clipboard_set, |p| {
     ring_check_paracount!(p, 1);
     ring_check_string!(p, 1);
@@ -1378,7 +1378,7 @@ ring_func!(ring_slint_clipboard_set, |p| {
     }
 });
 
-#[cfg(not(target_os = "android"))]
+#[cfg(not(any(target_os = "android", target_os = "ios")))]
 ring_func!(ring_slint_clipboard_clear, |p| {
     ring_check_paracount!(p, 0);
     if let Err(e) = slint::clipboard_clear() {
@@ -1386,7 +1386,7 @@ ring_func!(ring_slint_clipboard_clear, |p| {
     }
 });
 
-#[cfg(not(target_os = "android"))]
+#[cfg(not(any(target_os = "android", target_os = "ios")))]
 ring_func!(ring_slint_hotkey_register, |p| {
     ring_check_paracount!(p, 3);
     ring_check_string!(p, 1);
@@ -1402,7 +1402,7 @@ ring_func!(ring_slint_hotkey_register, |p| {
     }
 });
 
-#[cfg(not(target_os = "android"))]
+#[cfg(not(any(target_os = "android", target_os = "ios")))]
 ring_func!(ring_slint_hotkey_unregister, |p| {
     ring_check_paracount!(p, 1);
     ring_check_number!(p, 1);
@@ -1413,7 +1413,7 @@ ring_func!(ring_slint_hotkey_unregister, |p| {
     }
 });
 
-#[cfg(not(target_os = "android"))]
+#[cfg(not(any(target_os = "android", target_os = "ios")))]
 ring_func!(ring_slint_hotkey_unregister_all, |p| {
     ring_check_paracount!(p, 0);
     if let Err(e) = slint::hotkey_unregister_all() {
@@ -1421,13 +1421,13 @@ ring_func!(ring_slint_hotkey_unregister_all, |p| {
     }
 });
 
-#[cfg(not(target_os = "android"))]
+#[cfg(not(any(target_os = "android", target_os = "ios")))]
 ring_func!(ring_slint_hotkey_poll, |p| {
     ring_check_paracount!(p, 0);
     slint::hotkey_poll();
 });
 
-#[cfg(not(target_os = "android"))]
+#[cfg(not(any(target_os = "android", target_os = "ios")))]
 ring_func!(ring_slint_tray_create, |p| {
     ring_check_paracount!(p, 1);
     ring_check_string!(p, 1);
@@ -1438,7 +1438,7 @@ ring_func!(ring_slint_tray_create, |p| {
     }
 });
 
-#[cfg(not(target_os = "android"))]
+#[cfg(not(any(target_os = "android", target_os = "ios")))]
 ring_func!(ring_slint_tray_create_with_icon, |p| {
     ring_check_paracount!(p, 2);
     ring_check_string!(p, 1);
@@ -1451,7 +1451,7 @@ ring_func!(ring_slint_tray_create_with_icon, |p| {
     }
 });
 
-#[cfg(not(target_os = "android"))]
+#[cfg(not(any(target_os = "android", target_os = "ios")))]
 ring_func!(ring_slint_tray_set_icon, |p| {
     ring_check_paracount!(p, 1);
     ring_check_string!(p, 1);
@@ -1462,7 +1462,7 @@ ring_func!(ring_slint_tray_set_icon, |p| {
     }
 });
 
-#[cfg(not(target_os = "android"))]
+#[cfg(not(any(target_os = "android", target_os = "ios")))]
 ring_func!(ring_slint_tray_set_tooltip, |p| {
     ring_check_paracount!(p, 1);
     ring_check_string!(p, 1);
@@ -1473,7 +1473,7 @@ ring_func!(ring_slint_tray_set_tooltip, |p| {
     }
 });
 
-#[cfg(not(target_os = "android"))]
+#[cfg(not(any(target_os = "android", target_os = "ios")))]
 ring_func!(ring_slint_tray_add_item, |p| {
     ring_check_paracount!(p, 2);
     ring_check_string!(p, 1);
@@ -1487,7 +1487,7 @@ ring_func!(ring_slint_tray_add_item, |p| {
     }
 });
 
-#[cfg(not(target_os = "android"))]
+#[cfg(not(any(target_os = "android", target_os = "ios")))]
 ring_func!(ring_slint_tray_add_separator, |p| {
     ring_check_paracount!(p, 0);
     if let Err(e) = slint::tray_add_separator() {
@@ -1495,19 +1495,19 @@ ring_func!(ring_slint_tray_add_separator, |p| {
     }
 });
 
-#[cfg(not(target_os = "android"))]
+#[cfg(not(any(target_os = "android", target_os = "ios")))]
 ring_func!(ring_slint_tray_destroy, |p| {
     ring_check_paracount!(p, 0);
     slint::tray_destroy();
 });
 
-#[cfg(not(target_os = "android"))]
+#[cfg(not(any(target_os = "android", target_os = "ios")))]
 ring_func!(ring_slint_tray_poll, |p| {
     ring_check_paracount!(p, 0);
     slint::tray_poll();
 });
 
-#[cfg(not(target_os = "android"))]
+#[cfg(not(any(target_os = "android", target_os = "ios")))]
 ring_func!(ring_slint_window_set_always_on_top, |p| {
     ring_check_paracount!(p, 2);
     ring_check_cpointer!(p, 1);
@@ -1526,7 +1526,7 @@ ring_func!(ring_slint_window_set_always_on_top, |p| {
     }
 });
 
-#[cfg(not(target_os = "android"))]
+#[cfg(not(any(target_os = "android", target_os = "ios")))]
 ring_func!(ring_slint_window_set_icon, |p| {
     ring_check_paracount!(p, 2);
     ring_check_cpointer!(p, 1);
@@ -1547,7 +1547,7 @@ ring_func!(ring_slint_window_set_icon, |p| {
     }
 });
 
-#[cfg(not(target_os = "android"))]
+#[cfg(not(any(target_os = "android", target_os = "ios")))]
 fn parse_file_filters(p: *mut libc::c_void, param: usize) -> Vec<(String, Vec<String>)> {
     let mut filters = Vec::new();
     let list = ring_api_getlist(p, param as i32);
@@ -1633,7 +1633,7 @@ ring_libinit! {
     "slint_definition_functions" => ring_slint_definition_functions,
     "slint_definition_globals" => ring_slint_definition_globals,
     "slint_model_get" => ring_slint_model_get,
-    #[cfg(not(target_os = "android"))]
+    #[cfg(not(any(target_os = "android", target_os = "ios")))]
     {
         "slint_window_drag" => ring_slint_window_drag,
         "slint_file_open" => ring_slint_file_open,
