@@ -5,7 +5,7 @@ aPackageInfo = [
 	:developer = "ysdragon",
 	:email = "youssefelkholey@gmail.com",
 	:license = "MIT",
-	:version = "1.0.0",
+	:version = "1.1.0",
 	:ringversion = "1.25",
 	:versions = 	[
 		[
