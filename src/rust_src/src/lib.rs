@@ -1189,7 +1189,7 @@ ring_func!(ring_slint_file_open_multiple, |p| {
     let files = slint::file_dialog_open_multiple(title, &filters);
     let list = ring_api_newlist(p);
     for file in files {
-        ring_list_addstring(list, file.as_bytes());
+        ring_list_addstring2(list, file.as_bytes());
     }
     ring_ret_list!(p, list);
 });
@@ -1241,7 +1241,7 @@ ring_func!(ring_slint_folder_open_multiple, |p| {
     let folders = slint::folder_dialog_multiple(title);
     let list = ring_api_newlist(p);
     for folder in folders {
-        ring_list_addstring(list, folder.as_bytes());
+        ring_list_addstring2(list, folder.as_bytes());
     }
     ring_ret_list!(p, list);
 });

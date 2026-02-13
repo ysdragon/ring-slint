@@ -1,6 +1,6 @@
 [package]
 name = "ring_slint"
-version = "1.0.0"
+version = "1.1.1"
 edition = "2024"
 description = "Slint GUI bindings for the Ring programming language"
 license = "MIT"
