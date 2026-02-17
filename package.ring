@@ -107,7 +107,9 @@ aPackageInfo = [
 	],
 	:linuxfiles = 	[
 		"lib/linux/amd64/libring_slint.so",
-		"lib/linux/arm64/libring_slint.so"
+		"lib/linux/arm64/libring_slint.so",
+		"lib/linux/musl/amd64/libring_slint.so",
+		"lib/linux/musl/arm64/libring_slint.so"
 	],
 	:ubuntufiles = 	[
 
