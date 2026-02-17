@@ -57,6 +57,7 @@ jobs:
             export SKIA_NINJA_COMMAND=ninja
             cd src/rust_src
             cargo build --release
+            chmod -R a+r /root/.cargo /workspace/src/rust_src/target
           '
 
     - name: Copy Rust artifacts to lib directory

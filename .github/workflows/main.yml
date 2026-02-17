@@ -69,6 +69,7 @@ jobs:
           # Extract os and arch from ring-slint-{os}-{arch}
           os_arch="${dirname#ring-slint-}"
           os="${os_arch%-*}"
+          os="${os//-//}"
           arch="${os_arch##*-}"
           mkdir -p "lib/${os}/${arch}"
           echo "Copying ${os}/${arch} from: $artifact_dir"
